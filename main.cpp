@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+#include "MainUi/MainWindow.h"
 #include <QApplication>
 #include <spdlog/spdlog.h>
 

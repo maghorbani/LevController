@@ -29,22 +29,22 @@ LIBS += "/Users/mohammad/Documents/lib/spdlog/spdlog/build/libspdlog.a"
 
 
 SOURCES += \
-        ArduinoMega.cpp \
-        Transducer.cpp \
+        Utils/ArduinoMega.cpp \
+        Utils/Transducer.cpp \
         main.cpp \
-        MainWindow.cpp \
-        phaseCalculator.cpp \
-        structureReader.cpp
+        MainUi/MainWindow.cpp \
+        Utils/phaseCalculator.cpp \
+        Utils/structureReader.cpp
 
 HEADERS += \
-        ArduinoMega.h \
-        MainWindow.h \
-        Transducer.h \
-        phaseCalculator.h \
-        structureReader.h
+        Utils/ArduinoMega.h \
+        MainUi/MainWindow.h \
+        Utils/Transducer.h \
+        Utils/phaseCalculator.h \
+        Utils/structureReader.h
 
 FORMS += \
-        MainWindow.ui
+        MainUi/MainWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
