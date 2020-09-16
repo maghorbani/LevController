@@ -4,7 +4,12 @@
 #include <QMainWindow>
 #include <QSerialPortInfo>
 #include <QSerialPort>
-#include <QDebug>
+
+#include <iostream>
+#include <vector>
+
+#include "Transducer.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -15,6 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    void move(double, double, double);
     ~MainWindow();
 
 private slots:
@@ -24,11 +30,17 @@ private slots:
 
     void on_pushButton_setMoveDiff_clicked();
 
+    void on_actionLoad_Struct_triggered();
+
+    void on_pushButton_calcAndSend_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort serial;
     QString portName = "cu.wchusbserial1410";
     double moveDiff;
+    Transform levPoint;
+    std::vector<Transducer> m_transducers;
 };
 
 #endif // MAINWINDOW_H

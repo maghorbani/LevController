@@ -1,7 +1,13 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
+#include <QFileDialog>
 #include <spdlog/spdlog.h>
+#include <QDebug>
+
+#include "structureReader.h"
+#include "phaseCalculator.h"
+#include "ArduinoMega.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +17,24 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("Levitaion Controller - BscProject - ee@aut - 9423079");
     on_pushButton_reset_clicked();
     moveDiff = ui->doubleSpinBox->value();
+
+    connect(ui->pushButton_Up, &QPushButton::clicked, this, [this](){this->move(0,1,0);});
+    connect(ui->pushButton_Down, &QPushButton::clicked, this, [this](){this->move(0,-1,0);});
+    connect(ui->pushButton_Right, &QPushButton::clicked, this, [this](){this->move(1,0,0);});
+    connect(ui->pushButton_Left, &QPushButton::clicked, this, [this](){this->move(-1,0,0);});
+    connect(ui->pushButton_Front, &QPushButton::clicked, this, [this](){this->move(0,0,1);});
+    connect(ui->pushButton_Back, &QPushButton::clicked, this, [this](){this->move(0,0,-1);});
+}
+
+void MainWindow::move(double x, double y, double z)
+{
+    Transform diff(x,y,z);
+
+    diff = diff*moveDiff;
+    levPoint = levPoint + diff;
+
+    phaseCalculator::focus(m_transducers, levPoint);
+    ArduinoMega::sendData(m_transducers, &serial);
 }
 
 MainWindow::~MainWindow()
@@ -51,4 +75,37 @@ void MainWindow::on_pushButton_use_clicked()
 void MainWindow::on_pushButton_setMoveDiff_clicked()
 {
     moveDiff = ui->doubleSpinBox->value();
+}
+
+void MainWindow::on_actionLoad_Struct_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "select struct json file","", "*.json");
+    QJsonObject obj = structureReader::readStruct(fileName);
+
+    QJsonArray transArr = obj["transducers"].toArray();
+    m_transducers.clear();
+
+    for(QJsonValue t:transArr){
+        m_transducers.push_back({t["x"].toDouble(), t["y"].toDouble(), t["z"].toDouble(),t["pin"].toInt()});
+    }
+}
+
+void MainWindow::on_pushButton_calcAndSend_clicked()
+{
+    QStringList pos = ui->lineEdit_position->text().split(",");
+    if(pos.size() != 3){
+        spdlog::error("please Enter a position in format x, y, z");
+        return;
+    }
+    if(m_transducers.size() == 0){
+        spdlog::error("please load a struct first!");
+        return;
+    }
+    levPoint.x = pos[0].toDouble();
+    levPoint.y = pos[1].toDouble();
+    levPoint.z = pos[2].toDouble();
+
+    phaseCalculator::focus(m_transducers, levPoint);
+
+    ArduinoMega::sendData(m_transducers, &serial);
 }

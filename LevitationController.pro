@@ -29,13 +29,19 @@ LIBS += "/Users/mohammad/Documents/lib/spdlog/spdlog/build/libspdlog.a"
 
 
 SOURCES += \
+        ArduinoMega.cpp \
         Transducer.cpp \
         main.cpp \
-        MainWindow.cpp
+        MainWindow.cpp \
+        phaseCalculator.cpp \
+        structureReader.cpp
 
 HEADERS += \
+        ArduinoMega.h \
         MainWindow.h \
-        Transducer.h
+        Transducer.h \
+        phaseCalculator.h \
+        structureReader.h
 
 FORMS += \
         MainWindow.ui
