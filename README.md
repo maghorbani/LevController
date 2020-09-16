@@ -1,4 +1,4 @@
-Levitated Object Controller
+## Levitated Object Controller
 
 
 
@@ -14,7 +14,7 @@ CMake Configs:
 -DCMAKE_PREFIX_PATH=path/to/Qt5;path/to/spdlog
 ```
 
-How to build:
+### How to build
 
 ```bash
 git clone https://github.com/maghorbani/LevController
@@ -25,13 +25,13 @@ cmake .. \
 make
 ```
 
-How it looks like
+#### How it looks like
 
 ![Levitation Controller App screenShot](images/main.png)
 
 
 
-How to use is:
+### How to use is:
 
 * use action **File>Load Struct ([CMD] + O)** and load a json structure file
 
