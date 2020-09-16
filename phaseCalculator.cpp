@@ -1,7 +1,7 @@
 #include "phaseCalculator.h"
+#include <spdlog/spdlog.h>
 
-
-double phaseCalculator::soundSpeed = 346.0;
+float phaseCalculator::soundSpeed = 346.0f;
 
 phaseCalculator::phaseCalculator()
 {
@@ -11,10 +11,10 @@ phaseCalculator::phaseCalculator()
 void phaseCalculator::focus(std::vector<Transducer> & transducers, Transform target)
 {
     for(Transducer &t:transducers){
-        double distance{t.transform().distance(target)};
-        double waveLength{soundSpeed/t.frequency};
-        double div{distance/waveLength};
-        double decPart{div - floor(div)};
-        t.phase = (1.0 - decPart) * 2.0;
+        float distance{t.transform().distance(target)};
+        float waveLength{soundSpeed/t.frequency};
+        float div{distance/waveLength};
+        float decPart{div - floor(div)};
+        t.phase = (1.0f - decPart) * 2.0f;
     }
 }

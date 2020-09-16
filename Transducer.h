@@ -4,12 +4,12 @@
 
 struct Transform{
     Transform() = default;
-    Transform(double _x, double _y, double _z): x(_x),y(_y),z(_z){}
-    double x, y, z;
-    double distance(Transform other){
+    Transform(float _x, float _y, float _z): x(_x),y(_y),z(_z){}
+    float x, y, z;
+    float distance(Transform other){
         return std::sqrt(std::pow(x-other.x,2)+std::pow(y-other.y,2)+std::pow(z-other.z,2));
     }
-    Transform operator*(double num){
+    Transform operator*(float num){
         Transform other(*this);
         other.x *= num;
         other.y *= num;
@@ -35,17 +35,19 @@ class Transducer
 public:
     Transducer();
     Transducer(Transform);
-    Transducer(double, double, double);
-    Transducer(double, double, double, int);
+    Transducer(float, float, float);
+    Transducer(double x, double y, double z);
+    Transducer(float, float, float, int);
+    Transducer(double x, double y, double z, int dpn);
 
-    double frequency = 40e3f;        // Hz
-    double apperture = 0.009f;     // apperture (diameter) for directivity calculation
-    double power = 2.53f;           // Transducer power (from microphone measurments).
+    float frequency = 40e3f;        // Hz
+    float apperture = 0.009f;     // apperture (diameter) for directivity calculation
+    float power = 2.53f;           // Transducer power (from microphone measurments).
 
     QString name;
-    double amplitude=1; //from 0 to 1
-    double phase; //in radians but divided by PI. That is, a phase of 2 means 2PI radians
-    double phaseCorrection; //the deviation that this current transducer has in phase due to manufacturing, long wires or polarity.
+    float amplitude=1; //from 0 to 1
+    float phase; //in radians but divided by PI. That is, a phase of 2 means 2PI radians
+    float phaseCorrection; //the deviation that this current transducer has in phase due to manufacturing, long wires or polarity.
 
     int type = 0; //0=circle, 1=square... Unimplemented
     Transform transform() const;
@@ -53,6 +55,6 @@ public:
     int getDriverPinNumber() const;
     void setDriverPinNumber(int value);
 
-    static int calcDiscPhase(double phase, int divs);
+    static int calcDiscPhase(float phase, int divs);
 };
 

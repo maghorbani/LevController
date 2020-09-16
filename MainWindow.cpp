@@ -3,7 +3,6 @@
 
 #include <QFileDialog>
 #include <spdlog/spdlog.h>
-#include <QDebug>
 
 #include "structureReader.h"
 #include "phaseCalculator.h"
@@ -16,20 +15,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Levitaion Controller - BscProject - ee@aut - 9423079");
     on_pushButton_reset_clicked();
-    moveDiff = ui->doubleSpinBox->value();
+    moveDiff = ui->doubleSpinBox->value()/1000.0;
 
-    connect(ui->pushButton_Up, &QPushButton::clicked, this, [this](){this->move(0,1,0);});
-    connect(ui->pushButton_Down, &QPushButton::clicked, this, [this](){this->move(0,-1,0);});
-    connect(ui->pushButton_Right, &QPushButton::clicked, this, [this](){this->move(1,0,0);});
-    connect(ui->pushButton_Left, &QPushButton::clicked, this, [this](){this->move(-1,0,0);});
-    connect(ui->pushButton_Front, &QPushButton::clicked, this, [this](){this->move(0,0,1);});
-    connect(ui->pushButton_Back, &QPushButton::clicked, this, [this](){this->move(0,0,-1);});
+    connect(ui->pushButton_Up,      &QPushButton::clicked, this, [this](){this->move( 0, 1, 0);});
+    connect(ui->pushButton_Down,    &QPushButton::clicked, this, [this](){this->move( 0,-1, 0);});
+    connect(ui->pushButton_Right,   &QPushButton::clicked, this, [this](){this->move( 1, 0, 0);});
+    connect(ui->pushButton_Left,    &QPushButton::clicked, this, [this](){this->move(-1, 0, 0);});
+    connect(ui->pushButton_Front,   &QPushButton::clicked, this, [this](){this->move( 0, 0, 1);});
+    connect(ui->pushButton_Back,    &QPushButton::clicked, this, [this](){this->move( 0, 0,-1);});
 }
 
-void MainWindow::move(double x, double y, double z)
+void MainWindow::move(float x, float y, float z)
 {
     Transform diff(x,y,z);
-
     diff = diff*moveDiff;
     levPoint = levPoint + diff;
 
@@ -69,12 +67,11 @@ void MainWindow::on_pushButton_use_clicked()
     serial.setFlowControl(QSerialPort::NoFlowControl);
 
     spdlog::info("port: {} successfully configured", portName.toStdString());
-//    QObject::connect(&serial,SIGNAL(readyRead()), this, SLOT(readSerial()));
 }
 
 void MainWindow::on_pushButton_setMoveDiff_clicked()
 {
-    moveDiff = ui->doubleSpinBox->value();
+    moveDiff = static_cast<float>(ui->doubleSpinBox->value())/1000.0f;
 }
 
 void MainWindow::on_actionLoad_Struct_triggered()
@@ -101,9 +98,9 @@ void MainWindow::on_pushButton_calcAndSend_clicked()
         spdlog::error("please load a struct first!");
         return;
     }
-    levPoint.x = pos[0].toDouble();
-    levPoint.y = pos[1].toDouble();
-    levPoint.z = pos[2].toDouble();
+    levPoint.x = pos[0].toFloat();
+    levPoint.y = pos[1].toFloat();
+    levPoint.z = pos[2].toFloat();
 
     phaseCalculator::focus(m_transducers, levPoint);
 

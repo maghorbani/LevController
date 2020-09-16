@@ -8,7 +8,7 @@
 
 class phaseCalculator
 {
-    static double soundSpeed;
+    static float soundSpeed;
 public:
     phaseCalculator();
 

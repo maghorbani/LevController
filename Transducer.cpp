@@ -10,7 +10,7 @@ void Transducer::setDriverPinNumber(int value)
     driverPinNumber = value;
 }
 
-int Transducer::calcDiscPhase(double phase, int divs)
+int Transducer::calcDiscPhase(float phase, int divs)
 {
     int xPhase{static_cast<int>(round(phase*divs/2))};
     xPhase = xPhase%divs;
@@ -34,18 +34,31 @@ Transducer::Transducer(Transform trans)
     m_transform.z = trans.z;
 }
 
-Transducer::Transducer(double x, double y, double z)
+Transducer::Transducer(float x, float y, float z)
 {
     m_transform.x = x;
     m_transform.y = y;
     m_transform.z = z;
 }
 
-Transducer::Transducer(double x, double y, double z, int dpn)
+Transducer::Transducer(double x, double y, double z){
+    m_transform.x = static_cast<float>(x);
+    m_transform.y = static_cast<float>(y);
+    m_transform.z = static_cast<float>(z);
+}
+
+Transducer::Transducer(float x, float y, float z, int dpn)
 {
     m_transform.x = x;
     m_transform.y = y;
     m_transform.z = z;
+    driverPinNumber = dpn;
+}
+
+Transducer::Transducer(double x, double y, double z, int dpn){
+    m_transform.x = static_cast<float>(x);
+    m_transform.y = static_cast<float>(y);
+    m_transform.z = static_cast<float>(z);
     driverPinNumber = dpn;
 }
 

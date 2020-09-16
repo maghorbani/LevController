@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    void move(double, double, double);
+    void move(float, float, float);
     ~MainWindow();
 
 private slots:
@@ -38,7 +38,7 @@ private:
     Ui::MainWindow *ui;
     QSerialPort serial;
     QString portName = "cu.wchusbserial1410";
-    double moveDiff;
+    float moveDiff;
     Transform levPoint;
     std::vector<Transducer> m_transducers;
 };
