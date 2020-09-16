@@ -34,6 +34,8 @@ private slots:
 
     void on_pushButton_calcAndSend_clicked();
 
+    void updatePositionUi();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort serial;

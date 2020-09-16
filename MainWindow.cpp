@@ -31,6 +31,8 @@ void MainWindow::move(float x, float y, float z)
     diff = diff*moveDiff;
     levPoint = levPoint + diff;
 
+    updatePositionUi();
+
     phaseCalculator::focus(m_transducers, levPoint);
     ArduinoMega::sendData(m_transducers, &serial);
 }
@@ -80,7 +82,14 @@ void MainWindow::on_actionLoad_Struct_triggered()
     QJsonObject obj = structureReader::readStruct(fileName);
 
     QJsonArray transArr = obj["transducers"].toArray();
+    QJsonObject centerPoint = obj["center"].toObject();
     m_transducers.clear();
+
+    levPoint.x = static_cast<float>(centerPoint["x"].toDouble());
+    levPoint.y = static_cast<float>(centerPoint["y"].toDouble());
+    levPoint.z = static_cast<float>(centerPoint["z"].toDouble());
+
+    updatePositionUi();
 
     for(QJsonValue t:transArr){
         m_transducers.push_back({t["x"].toDouble(), t["y"].toDouble(), t["z"].toDouble(),t["pin"].toInt()});
@@ -98,11 +107,18 @@ void MainWindow::on_pushButton_calcAndSend_clicked()
         spdlog::error("please load a struct first!");
         return;
     }
-    levPoint.x = pos[0].toFloat();
-    levPoint.y = pos[1].toFloat();
-    levPoint.z = pos[2].toFloat();
+    levPoint.x = pos[0].toFloat()/1000.0f;
+    levPoint.y = pos[2].toFloat()/1000.0f;
+    levPoint.z = pos[1].toFloat()/1000.0f;
 
     phaseCalculator::focus(m_transducers, levPoint);
 
     ArduinoMega::sendData(m_transducers, &serial);
+}
+
+void MainWindow::updatePositionUi()
+{
+    QString pos{QString("%1, %2, %3").arg(levPoint.x*1000.0f).arg(levPoint.z*1000.0f).arg(levPoint.y*1000.0f)};
+
+    ui->lineEdit_position->setText(pos);
 }
