@@ -25,9 +25,9 @@ void ArduinoMega::sendData(const std::vector<Transducer> & transducers,  QSerial
 
         int8_t value{static_cast<int8_t>((1 << (hardwarePin % 8)) & 0xFF)};
 
-        int phase{Transducer::calcDiscPhase(t.phase, nDivs)};
+        int phase{Transducer::calcDiscPhase(t.getPhase(), nDivs)};
 
-        int ampDivs{iclamp(static_cast<int>(round(t.amplitude * static_cast<float>(nDivs) / 2.0f)), 0, nDivs)};
+        int ampDivs{iclamp(static_cast<int>(round(t.getAmplitude() * static_cast<float>(nDivs) / 2.0f)), 0, nDivs)};
 
         for (int i{}; i < ampDivs; i++) {
             int d = (i + phase + phaseCompensation) % nDivs;

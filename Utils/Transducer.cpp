@@ -22,6 +22,36 @@ int Transducer::calcDiscPhase(float phase, int divs)
     return xPhase;
 }
 
+float Transducer::getFrequency() const
+{
+    return frequency;
+}
+
+void Transducer::setFrequency(float value)
+{
+    frequency = value;
+}
+
+float Transducer::getAmplitude() const
+{
+    return amplitude;
+}
+
+void Transducer::setAmplitude(float value)
+{
+    amplitude = value;
+}
+
+float Transducer::getPhase() const
+{
+    return phase;
+}
+
+void Transducer::setPhase(float value)
+{
+    phase = value;
+}
+
 Transducer::Transducer()
 {
 
