@@ -15,13 +15,13 @@ find_package(Qt5 COMPONENTS Widgets SerialPort REQUIRED)
 find_package(spdlog REQUIRED)
 
 add_executable(${target}
-    ArduinoMega.cpp 
-    Transducer.cpp 
+    ${CMAKE_SOURCE_DIR}/Utils/ArduinoMega.cpp 
+    ${CMAKE_SOURCE_DIR}/Utils/Transducer.cpp 
     main.cpp 
-    MainWindow.cpp 
-    phaseCalculator.cpp 
-    structureReader.cpp
-    MainWindow.ui
+    ${CMAKE_SOURCE_DIR}/MainUi/MainWindow.cpp 
+    ${CMAKE_SOURCE_DIR}/Utils/phaseCalculator.cpp 
+    ${CMAKE_SOURCE_DIR}/Utils/structureReader.cpp
+    ${CMAKE_SOURCE_DIR}/MainUi/MainWindow.ui
 )
 
 qt5_use_modules(${target} 
@@ -30,5 +30,5 @@ qt5_use_modules(${target}
 )
 
 target_link_libraries(${target}
-    ${spdlog_LIBS}
+    spdlog::spdlog_header_only
 )
