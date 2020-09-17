@@ -52,6 +52,11 @@ void Transducer::setPhase(float value)
     phase = value;
 }
 
+void Transducer::addPhase(float val)
+{
+    phase += val;
+}
+
 Transducer::Transducer()
 {
 

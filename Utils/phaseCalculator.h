@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 #include "Utils/Transducer.h"
 
@@ -13,6 +14,8 @@ public:
     phaseCalculator();
 
     static void focus(std::vector<Transducer> &, Transform target);
+    static void addTwinSignature(std::vector<Transducer> &, float angle = M_PI_2);
+    static std::tuple<Transform, Transform, Transform> findBoundaries(std::vector<Transducer> &);
 };
 
 #endif // PHASECALCULATOR_H

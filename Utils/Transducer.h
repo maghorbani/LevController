@@ -1,29 +1,7 @@
 #pragma once
 #include <QString>
 #include <cmath>
-
-struct Transform{
-    Transform() = default;
-    Transform(float _x, float _y, float _z): x(_x),y(_y),z(_z){}
-    float x, y, z;
-    float distance(Transform other){
-        return std::sqrt(std::pow(x-other.x,2)+std::pow(y-other.y,2)+std::pow(z-other.z,2));
-    }
-    Transform operator*(float num){
-        Transform other(*this);
-        other.x *= num;
-        other.y *= num;
-        other.z *= num;
-        return other;
-    }
-    Transform operator+(Transform other){
-        other.x += x;
-        other.y += y;
-        other.z += z;
-        return other;
-    }
-//        float phi, rho;
-};
+#include "Utils/Transform.h"
 
 class Transducer
 {
@@ -53,5 +31,7 @@ public:
     void setAmplitude(float value);
     float getPhase() const;
     void setPhase(float value);
+
+    void addPhase(float);
 };
 

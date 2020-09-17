@@ -40,6 +40,7 @@ HEADERS += \
         Utils/ArduinoMega.h \
         MainUi/MainWindow.h \
         Utils/Transducer.h \
+        Utils/Transform.h \
         Utils/phaseCalculator.h \
         Utils/structureReader.h
 
