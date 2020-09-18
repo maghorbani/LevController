@@ -27,7 +27,7 @@ make
 
 #### How it looks like
 
-![Levitation Controller App screenShot](images/main.png)
+<img src="images/main.png" alt="Levitation Controller App screenShot" style="zoom:40%;" />
 
 
 
