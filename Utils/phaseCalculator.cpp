@@ -27,19 +27,19 @@ void phaseCalculator::addTwinSignature(std::vector<Transducer> & transducers, fl
     for(Transducer &t: transducers){
         Transform npos{t.transform() - center};
         npos.divTo(size);
-        float value{(npos.angleXY() - angle)/static_cast<float>(M_PI)};
+
+        float value{(npos.angleXZ() + angle)/static_cast<float>(M_PI)};
         value = fmod(value, 2.0f);
 
         if(!(value >= 0.0f && value <= 1.0f))
             t.addPhase(1.0f);
-
     }
 }
 
 std::tuple<Transform, Transform, Transform> phaseCalculator::findBoundaries(std::vector<Transducer> & transducers)
 {
-    float minFloat{std::numeric_limits<float>::min()};
-    float maxFloat{std::numeric_limits<float>::max()};
+    float minFloat{std::numeric_limits<float>::max()};
+    float maxFloat{-std::numeric_limits<float>::min()};
     Transform min{minFloat};
     Transform max{maxFloat};
 
@@ -48,8 +48,19 @@ std::tuple<Transform, Transform, Transform> phaseCalculator::findBoundaries(std:
         max.setMax(t.transform());
     }
 
-    Transform center{max - min};
+    Transform center{max + min};
     center.divTo(2);
 
     return {min, max, center};
+}
+
+StructType phaseCalculator::detectStructType(std::vector<Transducer> &transducers)
+{
+    float y{transducers.at(0).transform().y};
+    for(Transducer &t: transducers){
+        if(std::abs(static_cast<float>(t.transform().y - y)) > 0.001f){
+            return StructType::twoSide;
+        }
+    }
+    return StructType::oneSide;
 }

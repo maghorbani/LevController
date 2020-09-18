@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Levitaion Controller - BscProject - ee@aut - 9423079");
     on_pushButton_reset_clicked();
+    setStructType();
     moveDiff = ui->doubleSpinBox->value()/1000.0;
 
     connect(ui->pushButton_Up,      &QPushButton::clicked, this, [this](){this->move( 0, 1, 0);});
@@ -94,6 +95,10 @@ void MainWindow::on_actionLoad_Struct_triggered()
     for(QJsonValue t:transArr){
         m_transducers.push_back({t["x"].toDouble(), t["y"].toDouble(), t["z"].toDouble(),t["pin"].toInt()});
     }
+
+    m_structType = phaseCalculator::detectStructType(m_transducers);
+
+    updateStructTypeUi();
 }
 
 void MainWindow::on_pushButton_calcAndSend_clicked()
@@ -113,6 +118,9 @@ void MainWindow::on_pushButton_calcAndSend_clicked()
 
     phaseCalculator::focus(m_transducers, levPoint);
 
+    if(m_structType == oneSide)
+        phaseCalculator::addTwinSignature(m_transducers);
+
     ArduinoMega::sendData(m_transducers, &serial);
 }
 
@@ -121,4 +129,23 @@ void MainWindow::updatePositionUi()
     QString pos{QString("%1, %2, %3").arg(levPoint.x*1000.0f).arg(levPoint.z*1000.0f).arg(levPoint.y*1000.0f)};
 
     ui->lineEdit_position->setText(pos);
+}
+
+void MainWindow::on_radioButton_structure_1_toggled(bool )
+{
+    setStructType();
+}
+
+void MainWindow::setStructType()
+{
+    if(ui->radioButton_structure_1->isChecked())
+        m_structType = oneSide;
+    else
+        m_structType = twoSide;
+}
+
+void MainWindow::updateStructTypeUi()
+{
+    ui->radioButton_structure_1->setChecked(m_structType == StructType::oneSide);
+    ui->radioButton_structure_2->setChecked(m_structType != StructType::oneSide);
 }

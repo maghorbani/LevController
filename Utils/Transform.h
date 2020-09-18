@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cmath>
+#include <spdlog/spdlog.h>
 
 struct Transform{
     Transform() = default;
@@ -31,6 +32,9 @@ struct Transform{
     }
     float angleXY(){
         return atan2(y,x);
+    }
+    float angleXZ(){
+        return atan2(z,x);
     }
     void divTo(Transform other){
         if(other.x != 0.0f)

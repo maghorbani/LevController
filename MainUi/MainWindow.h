@@ -10,6 +10,8 @@
 
 #include "Utils/Transducer.h"
 
+#include "Utils/phaseCalculator.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -36,6 +38,12 @@ private slots:
 
     void updatePositionUi();
 
+    void on_radioButton_structure_1_toggled(bool );
+
+    void setStructType();
+
+    void updateStructTypeUi();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort serial;
@@ -43,6 +51,7 @@ private:
     float moveDiff;
     Transform levPoint;
     std::vector<Transducer> m_transducers;
+    StructType m_structType;
 };
 
 #endif // MAINWINDOW_H
