@@ -5,6 +5,7 @@
 * Deps:
   * Qt5 [i used 5.13.0 version clang_64]
   * [spdlog](https://github.com/gabime/spdlog) [i used v1.8.0] 
+  * Arduino IDE 1.6.13
 
 CMake Configs:
 
@@ -30,6 +31,18 @@ make
 <img src="images/main.png" alt="Levitation Controller App screenShot" style="zoom:40%;" />
 
 
+
+### First Step: Prepare Hardware
+
+the electronic implementation is using ArduinoMEGA
+
+please prepare an ArduinoMEGA 2560 and using Arduino IDE, programm the LevControllerDriver/LevControllerDriver.ino file into the Arduino
+
+*please note that i used Arduino IDE 1.6.13 and in the higher versions, some optimizations in compile steps, will make the hardware not to work in 40KHz but in lower frequencies*
+
+*so best choice is to use Arduino IDE 1.6.13 and an alternative choice is to compile with -o 3 flag in higher version*
+
+*you can find Arduino IDE 1.6.13 download link [here](https://www.arduino.cc/en/main/OldSoftwareReleases).*
 
 ### How to use is:
 
