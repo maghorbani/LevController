@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <cmath>
-#include <spdlog/spdlog.h>
 
 struct Transform{
     Transform() = default;
@@ -9,7 +8,10 @@ struct Transform{
     Transform(float _n): x(_n),y(_n),z(_n){}
     float x, y, z;
     float distance(Transform other){
-        return static_cast<float>(std::sqrt(std::pow(x-other.x,2)+std::pow(y-other.y,2)+std::pow(z-other.z,2)));
+        return
+        static_cast<float>(std::sqrt(std::pow(x-other.x,2)+
+                                     std::pow(y-other.y,2)+
+                                     std::pow(z-other.z,2)));
     }
     Transform operator*(float num){
         Transform other(*this);

@@ -7,6 +7,7 @@
 #include "Utils/structureReader.h"
 #include "Utils/phaseCalculator.h"
 #include "Utils/ArduinoMega.h"
+#include "Utils/ControllerDevice.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,7 +36,8 @@ void MainWindow::move(float x, float y, float z)
     updatePositionUi();
 
     phaseCalculator::focus(m_transducers, levPoint);
-    ArduinoMega::sendData(m_transducers, &serial);
+    ArduinoMega dev{};
+    dev.sendData(m_transducers, &serial);
 }
 
 MainWindow::~MainWindow()
@@ -121,7 +123,8 @@ void MainWindow::on_pushButton_calcAndSend_clicked()
     if(m_structType == oneSide)
         phaseCalculator::addTwinSignature(m_transducers);
 
-    ArduinoMega::sendData(m_transducers, &serial);
+    ArduinoMega dev{};
+    dev.sendData(m_transducers, &serial);
 }
 
 void MainWindow::updatePositionUi()

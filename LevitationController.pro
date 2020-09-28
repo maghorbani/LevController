@@ -42,7 +42,8 @@ HEADERS += \
         Utils/Transducer.h \
         Utils/Transform.h \
         Utils/phaseCalculator.h \
-        Utils/structureReader.h
+        Utils/structureReader.h \
+        Utils/ControllerDevice.h
 
 FORMS += \
         MainUi/MainWindow.ui

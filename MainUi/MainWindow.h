@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "Utils/Transducer.h"
-
+#include "Utils/ControllerDevice.h"
 #include "Utils/phaseCalculator.h"
 
 namespace Ui {

@@ -1,5 +1,4 @@
-#ifndef PHASECALCULATOR_H
-#define PHASECALCULATOR_H
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -23,5 +22,3 @@ public:
     static std::tuple<Transform, Transform, Transform> findBoundaries(std::vector<Transducer> &);
     static StructType detectStructType(std::vector<Transducer> &);
 };
-
-#endif // PHASECALCULATOR_H
