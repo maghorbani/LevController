@@ -2,10 +2,15 @@
 
 #### Berif
 In this project, a system with the ability to levitate, manipulate and move a tiny object with certain characteristics by **acoustic waves** has been developed. An array of ultrasonic acoustic transducers has been used in which each transducer is cylinder-shaped with a diameter of 10mm and operating in 40 kHz frequency.
+
 Considering the air pressure trap to levitate the object, two types of arrays have been used: 
+
 1- Upward Square Array - Horizontal Air Trap 
+
 2- Two Directional (one upward and the other downward, with a vertical distance) Square Array - Standing Wave 
+
 Both types have been implemented in this project, and the second type led to more stable levitated objects. 
+
 For the first array, 64 transducers have been used and 50 transducers for the second in which each transducer is connected to its unique phase-delayed electronic signal. 
 To generate these signals, **Arduino MEGA 2560** microcomputer is used. Generated signals are amplified by a 64-channel amplifying board that has been designed using **Altium Designer**. 
 
