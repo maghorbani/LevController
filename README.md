@@ -1,6 +1,6 @@
 ## Levitated Object Controller
 
-#### Berif
+#### Brief
 In this project, a system with the ability to levitate, manipulate and move a tiny object with certain characteristics by **acoustic waves** has been developed. An array of ultrasonic acoustic transducers has been used in which each transducer is cylinder-shaped with a diameter of 10mm and operating in 40 kHz frequency.
 
 Considering the air pressure trap to levitate the object, two types of arrays have been used: 
@@ -56,7 +56,7 @@ please prepare an ArduinoMEGA 2560 and using Arduino IDE, programm the LevContro
 
 *you can find Arduino IDE 1.6.13 download link [here](https://www.arduino.cc/en/main/OldSoftwareReleases).*
 
-### How to use is:
+### How to use it:
 
 * use action **File>Load Struct ([CMD] + O)** and load a json structure file
 
